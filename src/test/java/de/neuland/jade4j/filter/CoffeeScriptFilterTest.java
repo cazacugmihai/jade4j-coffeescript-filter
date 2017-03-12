@@ -1,30 +1,29 @@
 package de.neuland.jade4j.filter;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-
-import org.apache.commons.io.FileUtils;
+import de.neuland.jade4j.IOUtils;
+import de.neuland.jade4j.JadeConfiguration;
 import org.junit.Test;
 
-import de.neuland.jade4j.JadeConfiguration;
-import de.neuland.jade4j.template.JadeTemplate;
+import java.io.IOException;
+
+import static java.util.Collections.emptyMap;
+import static org.junit.Assert.assertEquals;
 
 public class CoffeeScriptFilterTest {
-	private static final String RESOURCE_PATH = "src/test/resources/";
 
 	@Test
 	public void jade() throws Exception {
-		JadeConfiguration jade = new JadeConfiguration();
-		jade.setFilter("coffeescript", new CoffeeScriptFilter());
-		JadeTemplate template = jade.getTemplate(RESOURCE_PATH + "coffee.jade");
-		String html = jade.renderTemplate(template, new HashMap<String, Object>());
-		assertEquals(fileAsString("coffee.html"), html);
+		String expected = IOUtils.readFileContent("coffee.html");
+		String actual = jadeToHtml("src/test/resources/coffee.jade");
+
+		assertEquals(expected, actual);
 	}
 
-	private String fileAsString(String string) throws IOException {
-		return FileUtils.readFileToString(new File(RESOURCE_PATH + string), "UTF-8");
+	private String jadeToHtml(String path) throws IOException {
+		JadeConfiguration jade = new JadeConfiguration();
+		jade.setFilter("coffeescript", new CoffeeScriptFilter());
+
+		return jade.renderTemplate(jade.getTemplate(path), emptyMap());
 	}
+
 }
