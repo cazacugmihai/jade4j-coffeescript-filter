@@ -52,7 +52,7 @@ We are using Github for Maven hosting. Just add this repository ...
 <dependency>
   <groupId>de.neuland</groupId>
   <artifactId>jade4j-coffeescript-filter</artifactId>
-  <version>0.2.0</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
