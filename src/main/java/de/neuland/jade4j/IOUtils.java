@@ -1,29 +1,22 @@
 package de.neuland.jade4j;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.stream.Collectors;
 
 public final class IOUtils {
 
 	private IOUtils() {
 	}
 
-	public static File readFile(String path) throws FileNotFoundException {
-		ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-		URL resource = classLoader.getResource(path);
+	public static String getResourceContent(String path) throws IOException {
+		InputStream input = ClassLoader.getSystemClassLoader().getResourceAsStream(path);
 
-		if (resource == null) {
-			throw new FileNotFoundException("Cannot find file " + path);
+		try (BufferedReader buffer = new BufferedReader(new InputStreamReader(input))) {
+			return buffer.lines().collect(Collectors.joining("\n"));
 		}
-
-		return new File(resource.getFile());
-	}
-
-	public static String readFileContent(String path) throws IOException {
-		return new String(Files.readAllBytes(readFile(path).toPath()));
 	}
 
 }

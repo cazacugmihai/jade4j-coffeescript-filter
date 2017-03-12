@@ -6,8 +6,7 @@ import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.IOException;
 
 public final class CoffeeScriptCompiler {
 
@@ -19,9 +18,9 @@ public final class CoffeeScriptCompiler {
 		invoker = (Invocable) engine;
 
 		try {
-			engine.eval(new FileReader(IOUtils.readFile("coffee-script.js")));
+			engine.eval(IOUtils.getResourceContent("coffee-script.js"));
 			coffeeScript = engine.eval("CoffeeScript");
-		} catch (FileNotFoundException | ScriptException e) {
+		} catch (IOException | ScriptException e) {
 			throw new RuntimeException(e);
 		}
 	}

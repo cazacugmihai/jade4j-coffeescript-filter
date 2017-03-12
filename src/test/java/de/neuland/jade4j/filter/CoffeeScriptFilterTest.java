@@ -13,7 +13,7 @@ public class CoffeeScriptFilterTest {
 
 	@Test
 	public void jade() throws Exception {
-		String expected = IOUtils.readFileContent("coffee.html");
+		String expected = IOUtils.getResourceContent("coffee.html");
 		String actual = jadeToHtml("src/test/resources/coffee.jade");
 
 		assertEquals(expected, actual);
