@@ -41,7 +41,7 @@ We are using Github for Maven hosting. Just add this repository ...
 <repositories>
   <repository>
     <id>jade4j-coffeescript-filter-releases</id>
-    <url>https://raw.github.com/neuland/jade4j-coffeescript-filter/master/releases</url>
+    <url>https://raw.github.com/cazacugmihai/jade4j-coffeescript-filter/master/releases/</url>
   </repository>
 </repositories>
 ```
